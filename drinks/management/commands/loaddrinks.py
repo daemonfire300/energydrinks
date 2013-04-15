@@ -10,7 +10,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         time_start = time.time()
-        file = open("/home/dotcloud/current/tbldata.txt", "r+")
+        file = open("tbldata.txt", "r+")
         #file = open("tbldata.txt", "r+")
         contents = file.read()
         contents = json.loads(contents)
