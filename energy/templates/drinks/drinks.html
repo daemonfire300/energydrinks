@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+	</div>
+	<div class="row">
+		<h3>Select which drink you recently had</h3>
+		<hr />
+		<div>
+			<ul>
+			{% for drink in drinks %}
+				<li><a href="/drinks/add/{{ drink.id }}/">{{ drink.name }}</a></li>
+			{% endfor %}
+			</ul>
+		</div>
+	</div>
+{% endblock %}

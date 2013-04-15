@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+	</div>
+	<div class="row">
+		<h3>Select which drink you recently had</h3>
+		<div>
+			<table class="table">
+				<tbody>
+			{% for drink in drinks %}
+				<tr><td><a href="/drinks/increase/{{ drink.drink.id }}/" class="btn btn-success">+</a> <a href="/drinks/decrease/{{ drink.drink.id }}/" class="btn btn-danger">-</a> <a href="/drinks/{{ drink.drink.id }}/">{{ drink.drink.name }}</a> <span>(Cans consumed so far {{ drink.amount }})</span></td></tr>
+			{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+{% endblock %}
