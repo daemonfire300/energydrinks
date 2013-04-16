@@ -25,7 +25,6 @@
 	</svg>
 			<script>
 				function draw_germany() {
-					var germany_path = "m 181.57397,243.50809 -2.57263,-3.37289 -2.05572,-0.65246 -2.05571,-0.65246 0.41267,-1.16514 0.41268,-1.16514 1.7391,0.15501 1.73911,0.15501 4.02385,-3.90501 C 185.43043,230.75726 187.62124,229 188.08579,229 c 0.46454,0 2.41045,-1.37482 4.32425,-3.05516 l 3.47964,-3.05516 2.05516,2.05516 c 1.13034,1.13034 2.05516,2.46941 2.05516,2.9757 l 0,0.92055 -2.99876,0.65864 -2.99876,0.65863 -1.45166,2.07255 -1.45167,2.07255 1.43019,2.04189 1.43019,2.04189 -1.63475,1.80638 -1.63476,1.80638 -1.37639,0 -1.3764,0 -0.5756,-1.5 -0.57561,-1.5 -1.28602,0 -1.28602,0 -0.66818,1.74124 -0.66818,1.74125 2.04671,1.65732 2.04671,1.65733 -1.41222,0.54192 -1.41223,0.54192 -2.57262,-3.37289 z";
 					var height = 750;
 					var width = 750;
 
@@ -52,30 +51,10 @@
 						
 						var svg = d3.select('body svg')
 						svg.append("text").text("Dein Konsum entspricht "+percentage+"% der Fläche von Deutschland").attr("text-anchor", "middle").attr("y", height / 2).attr("x", width / 2).attr("fill", "white");
-					}, 4000);
+					}, 1000);
 				});
 			</script>
 		</div>
-		{% load comments %} {% render_comment_list for profile.user %} 
-		{% if user.is_authenticated %} {% get_comment_form for profile.user as form %}
-		<form class="form-horizontal" action="{% comment_form_target %}"
-			method="POST">
-			<div class="control-group">{% csrf_token %} {{ form.comment }}
-				{{ form.honeypot }} {{ form.content_type }} {{ form.object_pk }} 
-				{{ form.timestamp }} {{ form.security_hash }}</div>
-			<div class="control-group">
-				<input type="hidden" name="next" value="/profile/" />
-				<button type="submit" id="id_submit" class="btn" />
-				Add comment
-				</button>
-			</div>
-		</form>
-		{% else %}
-		<p>
-			Please <a href="{% url 'auth_login' %}">log in</a> to leave a
-			comment.
-		</p>
-		{% endif %}
 	</div>
 </div>
 {% endif %} 
