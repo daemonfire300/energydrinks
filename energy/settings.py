@@ -32,6 +32,8 @@ ALLOWED_HOSTS = []
 # In a Windows environment this must be set to your system time zone.
 TIME_ZONE = 'America/Chicago'
 
+DATETIME_FORMAT = 'd-m-Y H:i:s'
+
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
 LANGUAGE_CODE = 'en-us'
@@ -62,7 +64,7 @@ MEDIA_URL = ''
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/var/www/example.com/static/"
-STATIC_ROOT = os.path.join(os.path.dirname(__file__), '../static').replace('\\','/')
+STATIC_ROOT = '' #os.path.join(os.path.dirname(__file__), '../static').replace('\\','/')
 
 # URL prefix for static files.
 # Example: "http://example.com/static/", "http://static.example.com/"
@@ -104,7 +106,7 @@ MIDDLEWARE_CLASSES = (
 )
 
 ROOT_URLCONF = 'energy.urls'
-
+LOGIN_REDIRECT_URL = "/profile"
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'energy.wsgi.application'
 

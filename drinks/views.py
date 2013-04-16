@@ -26,16 +26,18 @@ def adddrink(request, drink_id):
     drink = Drink.objects.get(id=drink_id)
     already_drank = DrinkStats.objects.filter(profile=request.user.profile, drink=drink)
     if already_drank.count() > 0:
-        print "already"
+        print "already drank"
     else:
-        print "new"
         DrinkStats.objects.create(profile=request.user.profile, drink=drink)
-        daily = DailyDrink.objects.get(profile=request.user.profile, date=datetime.date())
+        daily = None
+        try:
+            daily = DailyDrink.objects.get(profile=request.user.profile, date=datetime.date.today())
+        except DailyDrink.DoesNotExist:
+            DailyDrink.objects.create(profile=request.user.profile, volume=drink.volume)
         if daily is not None:
             daily.volume += drink.volume
-        else:
-            DailyDrink.objects.create(profile=request.user.profile, volume=drink.volume)
-    
+            daily.save()
+            
     return HttpResponseRedirect('/mydrinks')
 
 @login_required(login_url='/member/login/')
@@ -49,12 +51,14 @@ def inc_drink(request, drink_id):
     else:
         print "new"
         DrinkStats.objects.create(profile=request.user.profile, drink=drink)
-    
-    daily = DailyDrink.objects.get(profile=request.user.profile, date=datetime.date())
+    daily = None
+    try:
+        daily = DailyDrink.objects.get(profile=request.user.profile, date=datetime.date.today())
+    except DailyDrink.DoesNotExist:
+        DailyDrink.objects.create(profile=request.user.profile, volume=drink.volume)
     if daily is not None:
         daily.volume += drink.volume
-    else:
-        DailyDrink.objects.create(profile=request.user.profile, volume=drink.volume)
+        daily.save()
     
     return HttpResponseRedirect('/mydrinks')
 
