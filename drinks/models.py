@@ -21,6 +21,7 @@ class DrinkStats(models.Model):
     drink = models.ForeignKey(Drink)
     amount = models.IntegerField(default=1)
     last_time = models.DateTimeField(auto_now_add=True)
+    rating = models.IntegerField(default=0)
     
 class DailyDrink(models.Model):
     profile = models.ForeignKey(Profile)
