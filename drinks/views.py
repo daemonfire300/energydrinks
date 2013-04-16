@@ -19,7 +19,7 @@ def drink(request, drink_id):
 
 @login_required(login_url='/member/login/')
 def mydrinks(request):
-    drinks = DrinkStats.objects.filter(profile=request.user.profile)
+    drinks = DrinkStats.objects.filter(profile=request.user.profile).order_by("amount")
     return render(request, 'drinks/mydrinks.html', {"drinks": drinks})
 
 @login_required(login_url='/member/login/')
