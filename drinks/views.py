@@ -3,7 +3,8 @@ from django.contrib.auth.views import login as login_view
 from drinks.forms import UserCreateForm
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from drinks.models import Profile, Drink, DrinkStats
+from drinks.models import Profile, Drink, DrinkStats, DailyDrink
+import datetime
 
 @login_required(login_url='/member/login/')
 def drinks(request):
@@ -29,6 +30,11 @@ def adddrink(request, drink_id):
     else:
         print "new"
         DrinkStats.objects.create(profile=request.user.profile, drink=drink)
+        daily = DailyDrink.objects.get(profile=request.user.profile, date=datetime.date())
+        if daily is not None:
+            daily.volume += drink.volume
+        else:
+            DailyDrink.objects.create(profile=request.user.profile, volume=drink.volume)
     
     return HttpResponseRedirect('/mydrinks')
 
@@ -43,6 +49,12 @@ def inc_drink(request, drink_id):
     else:
         print "new"
         DrinkStats.objects.create(profile=request.user.profile, drink=drink)
+    
+    daily = DailyDrink.objects.get(profile=request.user.profile, date=datetime.date())
+    if daily is not None:
+        daily.volume += drink.volume
+    else:
+        DailyDrink.objects.create(profile=request.user.profile, volume=drink.volume)
     
     return HttpResponseRedirect('/mydrinks')
 

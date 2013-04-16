@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.conf import settings
 import os
 
 class Drink(models.Model):
@@ -22,3 +21,8 @@ class DrinkStats(models.Model):
     drink = models.ForeignKey(Drink)
     amount = models.IntegerField(default=1)
     last_time = models.DateTimeField(auto_now_add=True)
+    
+class DailyDrink(models.Model):
+    profile = models.ForeignKey(Profile)
+    volume = models.IntegerField(default=1)
+    date = models.DateField(auto_now_add=True)
