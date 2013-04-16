@@ -5,6 +5,7 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from drinks.models import Profile, Drink, DrinkStats, DailyDrink
 import datetime
+from django.db.models.aggregates import Sum
 
 @login_required(login_url='/member/login/')
 def drinks(request):
@@ -97,9 +98,15 @@ def register(request):
 @login_required(login_url='/member/login/')
 def profile(request, user_id):
     profile = Profile.objects.get(pk=user_id)
+        
     return render(request, 'member/foreign_profile.html', {"profile": profile})
 
 @login_required(login_url='/member/login/')
 def index(request):
     profile = request.user.profile
-    return render(request, 'member/member_profile.html', {"profile": profile})
+    overall_volume = 1
+    daily = DailyDrink.objects.values('profile').filter(profile=profile).annotate(Sum("volume"))
+    if daily.count() > 0:
+        overall_volume = daily[0]["volume__sum"]
+        #overall_volume = daily["volume__sum"]
+    return render(request, 'member/member_profile.html', {"profile": profile, "overall_volume": overall_volume})
