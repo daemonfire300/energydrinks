@@ -42,16 +42,13 @@
 					console.log(percentage);
 					var height = 750;
 					var width = 550;
-					window.setTimeout(function() {
-						console.log("daaang");
-						d3.select('stop:nth-child(2)').transition().attr('offset', percentage+"%")
-						.duration(1500);
-						d3.select('stop:nth-child(1)').transition().attr('offset', percentage+50+"%")
-								.duration(1500);
-						
-						var svg = d3.select('body svg')
-						svg.append("text").text("Dein Konsum entspricht "+percentage+"% der Fläche von Deutschland").attr("text-anchor", "middle").attr("y", height / 2).attr("x", width / 2).attr("fill", "white");
-					}, 1000);
+					d3.select('stop:nth-child(2)').transition().attr('offset', percentage+"%")
+					.duration(1500);
+					d3.select('stop:nth-child(1)').transition().attr('offset', percentage+50+"%")
+							.duration(1500);
+					
+					var svg = d3.select('body svg')
+					svg.append("text").text("Dein Konsum entspricht "+percentage+"% der Fläche von Deutschland").attr("text-anchor", "middle").attr("y", height / 2).attr("x", width / 2).attr("fill", "white");
 				});
 			</script>
 		</div>
