@@ -8,6 +8,9 @@
 	media="screen">
 <link href="{{ STATIC_URL }}jgrowl/jquery.jgrowl.css" rel="stylesheet"
 	media="screen">
+	 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
+	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+	<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
 <title>{% block title %}{% endblock %}</title>
 <style>
 .axis path,
@@ -31,7 +34,6 @@
 <body>
 	<div class="container">
 		<div class="row">
-			<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 			<div id="chat">
 				<ul>
 				</ul>
@@ -51,6 +53,7 @@
 			<div class="span12">{% block content %} {% endblock %}</div>
 		</div>
 	</div>
+	
 	<script src="http://code.jquery.com/jquery-migrate-1.1.1.min.js"></script>
 	<script src="{{ STATIC_URL }}bootstrap/js/bootstrap.min.js"></script>
 	<script src="{{ STATIC_URL }}jgrowl/jquery.jgrowl.js"></script>

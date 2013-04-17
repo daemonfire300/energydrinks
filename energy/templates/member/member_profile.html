@@ -4,8 +4,12 @@
 <div class="row">
 	<h3>Profile. {{ profile.user.username }}</h3>
 	<hr />
-	<div>
-		<div>
+	<div id="tabs">
+		<ul>
+			<li><a href="#graphicx_1">Overall</a></li>
+			<li><a href="#graphicx_2">Daily</a></li>
+		</ul>
+		<div id="graphicx_1">
 			<script src="http://d3js.org/d3.v3.min.js"></script>
 			<svg width="0" height="0">
 		<defs>
@@ -23,7 +27,16 @@
 					transform="translate(57.32454,16.01484)" id="path1891" />
        </g>
 	</svg>
+	</div>
+	<div id="graphicx_2"></div>
+	
 			<script>
+			 	$(function() {
+					 $( "#tabs" ).tabs({
+					 	event: "mouseover"
+					 });
+					 $(".ui-widget-content").css("border", "none");
+				 });
 				function draw_germany() {
 					var height = 750;
 					var width = 750;
@@ -53,20 +66,21 @@
 			</script>
 			<script>
 				var margin = {top: 20, right: 20, bottom: 30, left: 50},
-				    width = 960 - margin.left - margin.right,
-				    height = 500 - margin.top - margin.bottom;
+				    width = 690 - margin.left - margin.right,
+				    height = 400 - margin.top - margin.bottom;
 				
-				var parseDate = d3.time.format("%d/%m/%Y").parse;
+				var parseDate = d3.time.format("%Y-%m-%d").parse;
 				
 				var x = d3.time.scale()
 				    .range([0, width]);
 				
 				var y = d3.scale.linear()
-				    .range([height, 0]);
+				    .range([0, height]);
 				
 				var xAxis = d3.svg.axis()
 				    .scale(x)
-				    .orient("bottom");
+				    .orient("bottom")
+				    .ticks(d3.time.days);
 				
 				var yAxis = d3.svg.axis()
 				    .scale(y)
@@ -74,17 +88,20 @@
 				
 				var line = d3.svg.line()
 				    .x(function(d) { return x(d.date); })
-				    .y(function(d) { return y(d.close); });
+				    .y(function(d) { return y(d.volume); });
 				
-				var svg = d3.select("body").append("svg")
+				var svg = d3.select("body div#graphicx_2").append("svg")
 				    .attr("width", width + margin.left + margin.right)
 				    .attr("height", height + margin.top + margin.bottom)
+				    .style("padding", "15px")
 				  .append("g")
 				    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 				
 				d3.csv("/drinks/stats/", function(error, data) {
 				  data.forEach(function(d) {
 				    d.date = parseDate(d.date);
+				    console.log(d.date);
+				    console.log(d.volume);
 				    d.volume = d.volume;
 				  });
 				
