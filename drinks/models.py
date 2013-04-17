@@ -53,7 +53,7 @@ class DrinkStats(models.Model):
 class DailyDrink(models.Model):
     profile = models.ForeignKey(Profile)
     volume = models.IntegerField(default=1)
-    date = models.DateField(auto_now_add=True)
+    date = models.DateField(auto_now_add=True, editable=True)
     
     @property
     def liter(self):
