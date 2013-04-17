@@ -3,7 +3,24 @@ from django.contrib.auth.models import User
 import os
 
 class DataSheet(models.Model):
+    vitamin_a = models.IntegerField(default=1)
+    vitamin_b = models.IntegerField(default=1)
     vitamin_c = models.IntegerField(default=1)
+    vitamin_d = models.IntegerField(default=1)
+    vitamin_b2 = models.IntegerField(default=1)
+    vitamin_e = models.IntegerField(default=1)
+    vitamin_b12 = models.IntegerField(default=1)
+    vitamin_k = models.IntegerField(default=1)
+    vitamin_b5 = models.IntegerField(default=1)
+    vitamin_b7 = models.IntegerField(default=1)
+    vitamin_b6 = models.IntegerField(default=1)
+    vitamin_b3 = models.IntegerField(default=1)
+    vitamin_b9 = models.IntegerField(default=1)
+    calories = models.IntegerField(default=1)
+    proteins = models.IntegerField(default=1)
+    sugar = models.IntegerField(default=1)
+    fat = models.IntegerField(default=0)
+    carbohydrate = models.IntegerField(default=1)
 
 class Drink(models.Model):
     name = models.CharField(max_length=128, default="unknown drink")
