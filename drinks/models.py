@@ -41,7 +41,7 @@ class Profile(models.Model):
     drinks = models.ManyToManyField(Drink, through="DrinkStats")
     
     def __unicode__(self):
-        self.user.username
+        return self.user.username
     
 class DrinkStats(models.Model):
     profile = models.ForeignKey(Profile)
