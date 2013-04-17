@@ -75,7 +75,7 @@
 				    .range([0, width]);
 				
 				var y = d3.scale.linear()
-				    .range([0, height]);
+				    .range([height, 0]);
 				
 				var xAxis = d3.svg.axis()
 				    .scale(x)
@@ -100,8 +100,6 @@
 				d3.csv("/drinks/stats/", function(error, data) {
 				  data.forEach(function(d) {
 				    d.date = parseDate(d.date);
-				    console.log(d.date);
-				    console.log(d.volume);
 				    d.volume = d.volume;
 				  });
 				
