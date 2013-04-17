@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 import os
 
-class DataSheet(models.Model):
+class Datasheet(models.Model):
     vitamin_a = models.IntegerField(default=1)
     vitamin_b = models.IntegerField(default=1)
     vitamin_c = models.IntegerField(default=1)
@@ -24,7 +24,7 @@ class DataSheet(models.Model):
 
 class Drink(models.Model):
     name = models.CharField(max_length=128, default="unknown drink")
-    datasheet = models.OneToOneField(DataSheet, null=True)
+    datasheet = models.OneToOneField(Datasheet, null=True)
     volume = models.IntegerField(default=0)
     caffeine = models.IntegerField(default=0)
     image = models.ImageField(upload_to=os.path.join(os.path.dirname(__file__), '../static/images').replace('\\','/'))
