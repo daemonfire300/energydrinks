@@ -40,6 +40,9 @@ class Profile(models.Model):
     user = models.OneToOneField(User)
     drinks = models.ManyToManyField(Drink, through="DrinkStats")
     
+    def __unicode__(self):
+        self.user.username
+    
 class DrinkStats(models.Model):
     profile = models.ForeignKey(Profile)
     drink = models.ForeignKey(Drink)
