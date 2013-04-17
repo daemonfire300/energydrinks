@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from drinks.models import Profile, Drink, DrinkStats, DailyDrink
 import datetime
 from django.db.models.aggregates import Sum
+from common.http.jsonresponse import JsonResponse
 
 @login_required(login_url='/member/login/')
 def drinks(request):
@@ -40,6 +41,15 @@ def adddrink(request, drink_id):
             daily.save()
             
     return HttpResponseRedirect('/mydrinks')
+
+@login_required(login_url='/member/login/')
+def drinkstats(request):
+    profile = request.user.profile
+    stats = DailyDrink.objects.filter(profile=profile).order_by("date")
+    csv = "Date,Volume\n"
+    for entry in stats:
+        csv += "%s,%s\n" % (entry.date, entry.volume)
+    return JsonResponse(csv)
 
 @login_required(login_url='/member/login/')
 def inc_drink(request, drink_id):
