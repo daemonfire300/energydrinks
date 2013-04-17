@@ -7,6 +7,8 @@ from drinks.models import Profile, Drink, DrinkStats, DailyDrink
 import datetime
 from django.db.models.aggregates import Sum
 from common.http.jsonresponse import JsonResponse
+from django.http.response import HttpResponse
+import csv
 
 @login_required(login_url='/member/login/')
 def drinks(request):
@@ -46,10 +48,15 @@ def adddrink(request, drink_id):
 def drinkstats(request):
     profile = request.user.profile
     stats = DailyDrink.objects.filter(profile=profile).order_by("date")
-    csv = "Date,Volume\n"
+    
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="somefilename.csv"'
+
+    writer = csv.writer(response)
+    writer.writerow(['date', 'volume'])
     for entry in stats:
-        csv += "%s,%s\n" % (entry.date, entry.volume)
-    return JsonResponse(csv)
+        writer.writerow([entry.date, entry.volume])
+    return response
 
 @login_required(login_url='/member/login/')
 def inc_drink(request, drink_id):
