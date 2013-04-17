@@ -32,6 +32,9 @@ class Drink(models.Model):
     
     def __unicode__(self):
         return "%s %s ml %s mg" % (self.name, self.volume, self.caffeine)
+    @property
+    def liter(self):
+        return self.volume/1000
     
 class Profile(models.Model):
     user = models.OneToOneField(User)
@@ -48,3 +51,7 @@ class DailyDrink(models.Model):
     profile = models.ForeignKey(Profile)
     volume = models.IntegerField(default=1)
     date = models.DateField(auto_now_add=True)
+    
+    @property
+    def liter(self):
+        return self.volume/1000

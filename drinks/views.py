@@ -55,7 +55,7 @@ def drinkstats(request):
     writer = csv.writer(response)
     writer.writerow(['date', 'volume'])
     for entry in stats:
-        writer.writerow([entry.date, entry.volume])
+        writer.writerow([entry.date, entry.liter])
     return response
 
 @login_required(login_url='/member/login/')

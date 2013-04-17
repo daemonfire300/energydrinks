@@ -93,7 +93,7 @@
 				var svg = d3.select("body div#graphicx_2").append("svg")
 				    .attr("width", width + margin.left + margin.right)
 				    .attr("height", height + margin.top + margin.bottom)
-				    .style("padding", "15px")
+				    .style("padding", "5px")
 				  .append("g")
 				    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 				
@@ -121,7 +121,7 @@
 				      .attr("y", 6)
 				      .attr("dy", ".71em")
 				      .style("text-anchor", "end")
-				      .text("Volume (ml)");
+				      .text("Volume (liter)");
 				
 				  svg.append("path")
 				      .datum(data)
