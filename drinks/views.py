@@ -47,7 +47,7 @@ def adddrink(request, drink_id):
 @login_required(login_url='/member/login/')
 def drinkstats(request):
     profile = request.user.profile
-    stats = DailyDrink.objects.filter(profile=profile, date__lte=datetime.datetime.now() - datetime.timedelta(days=30)).order_by("date")
+    stats = DailyDrink.objects.filter(profile=profile, date__gte=datetime.datetime.now() - datetime.timedelta(days=30)).order_by("date")
     
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename="somefilename.csv"'
