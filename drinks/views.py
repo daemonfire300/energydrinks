@@ -47,7 +47,7 @@ def adddrink(request, drink_id):
 @login_required(login_url='/member/login/')
 def drinkstats(request):
     profile = request.user.profile
-    stats = DailyDrink.objects.filter(profile=profile).order_by("date")
+    stats = DailyDrink.objects.filter(profile=profile, date__lte=datetime.datetime.now() - datetime.timedelta(days=30)).order_by("date")
     
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename="somefilename.csv"'
@@ -123,6 +123,7 @@ def index(request):
     profile = request.user.profile
     overall_volume = 1
     daily = DailyDrink.objects.values('profile').filter(profile=profile).annotate(Sum("volume"))
+    vitamin = DrinkStats.objects.filter(profile=profile).annotate(Sum("drink__datasheet__carbohydrate"))
     if daily.count() > 0:
         overall_volume = daily[0]["volume__sum"]
         #overall_volume = daily["volume__sum"]
